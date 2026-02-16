@@ -8,6 +8,7 @@ interface Props {
   playerName: string;
   loverName: string;
   onSpinAgain: () => void;
+  onLetterViewChange: (isLetter: boolean) => void;
 }
 
 const BONUS_PASSWORD = '100226';
@@ -23,6 +24,7 @@ export default function ResultScreen({
   playerName,
   loverName,
   onSpinAgain,
+  onLetterViewChange,
 }: Props) {
   const [bonusState, setBonusState] = useState<'idle' | 'password' | 'letter'>('idle');
   const [pinDigits, setPinDigits] = useState<string[]>(['', '', '', '', '', '']);
@@ -104,6 +106,7 @@ export default function ResultScreen({
     if (code === BONUS_PASSWORD) {
       setErrorMsg('');
       setBonusState('letter');
+      onLetterViewChange(true);
     } else {
       setErrorMsg('Sai mật khẩu, thử lại nhé!');
       setShake(true);
@@ -119,6 +122,7 @@ export default function ResultScreen({
     setBonusState('idle');
     setPinDigits(['', '', '', '', '', '']);
     setErrorMsg('');
+    onLetterViewChange(false);
   };
 
   // ==================== LOVE LETTER ====================

@@ -39,7 +39,11 @@ function generateCats(count: number): CatConfig[] {
   }));
 }
 
-export default function DancingCats() {
+interface Props {
+  visible?: boolean;
+}
+
+export default function DancingCats({ visible = true }: Props) {
   const [cats] = useState<CatConfig[]>(() => generateCats(10));
   const [mounted, setMounted] = useState(false);
 
@@ -50,7 +54,7 @@ export default function DancingCats() {
   if (!mounted) return null;
 
   return (
-    <div className="dancing-cats-container">
+    <div className={`dancing-cats-container ${!visible ? 'cats-hidden' : ''}`}>
       {cats.map((cat) => (
         <div
           key={cat.id}

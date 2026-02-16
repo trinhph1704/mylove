@@ -24,6 +24,7 @@ function App() {
   const [wishes, setWishes] = useState('');
   const [selectedPrizes, setSelectedPrizes] = useState<Prize[]>([]);
   const [wonPrize, setWonPrize] = useState<Prize | null>(null);
+  const [isLetterView, setIsLetterView] = useState(false);
 
   const progressIndex = PROGRESS_STEPS.indexOf(step);
   const showProgress = progressIndex >= 0;
@@ -79,8 +80,8 @@ function App() {
 
   return (
     <div className="app">
-      <DancingCats />
-      <MusicPlayer />
+      <DancingCats visible={!isLetterView} />
+      <MusicPlayer isLetterView={isLetterView} />
       <div className="container">
         {showProgress && (
           <div className="progress-bar">
@@ -131,6 +132,7 @@ function App() {
             playerName={playerName}
             loverName={loverName}
             onSpinAgain={handleSpinAgain}
+            onLetterViewChange={setIsLetterView}
           />
         )}
       </div>
