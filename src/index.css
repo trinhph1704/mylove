@@ -1,0 +1,1343 @@
+:root {
+  --primary: #FF6B6B;
+  --primary-dark: #e55555;
+  --secondary: #FF8E8E;
+  --accent: #FFD93D;
+  --bg-start: #0f0c29;
+  --bg-mid: #302b63;
+  --bg-end: #24243e;
+  --text: #ffffff;
+  --text-muted: rgba(255, 255, 255, 0.7);
+  --card-bg: rgba(255, 255, 255, 0.08);
+  --card-border: rgba(255, 255, 255, 0.12);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  background: linear-gradient(135deg, var(--bg-start), var(--bg-mid), var(--bg-end));
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+#root {
+  height: 100%;
+}
+
+/* ============ APP CONTAINER ============ */
+.app {
+  height: 100vh;
+  height: 100dvh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: 430px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* ============ PROGRESS BAR ============ */
+.progress-bar {
+  display: flex;
+  align-items: center;
+  padding: 14px 16px 6px;
+  flex-shrink: 0;
+  gap: 12px;
+}
+
+.btn-back {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.btn-back:active {
+  transform: scale(0.9);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.progress-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.progress-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  transition: all 0.4s ease;
+}
+
+.progress-dot.active {
+  background: var(--primary);
+}
+
+.progress-dot.current {
+  width: 24px;
+  border-radius: 4px;
+  background: linear-gradient(135deg, var(--accent), var(--primary));
+  box-shadow: 0 0 12px rgba(255, 107, 107, 0.5);
+}
+
+/* ============ STEP CONTAINER ============ */
+.step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 20px;
+  text-align: center;
+  gap: 18px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ============ ANIMATIONS ============ */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes confettiFall {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+    opacity: 1;
+  }
+  70% { opacity: 1; }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 4px 20px rgba(255, 107, 107, 0.4); }
+  50% { box-shadow: 0 4px 35px rgba(255, 107, 107, 0.7), 0 0 60px rgba(255, 215, 0, 0.2); }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.15); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.1); }
+  60% { transform: scale(1); }
+}
+
+.fade-in {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+/* ============ TYPOGRAPHY ============ */
+.step-icon {
+  font-size: 72px;
+  animation: float 3s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.step-title {
+  font-size: 28px;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--accent), var(--primary), var(--secondary));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+  line-height: 1.3;
+  flex-shrink: 0;
+}
+
+.step-desc {
+  font-size: 17px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  padding: 0 8px;
+  flex-shrink: 0;
+}
+
+/* ============ FORM ============ */
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.input-field {
+  width: 100%;
+  padding: 16px 20px;
+  border: 2px solid var(--card-border);
+  border-radius: 14px;
+  background: var(--card-bg);
+  color: var(--text);
+  font-size: 18px;
+  outline: none;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-family: inherit;
+}
+
+.input-field:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 20px rgba(255, 107, 107, 0.2);
+}
+
+.input-field::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.textarea {
+  resize: none;
+  min-height: 100px;
+  line-height: 1.6;
+}
+
+/* ============ BUTTONS ============ */
+.btn {
+  width: 100%;
+  padding: 16px 24px;
+  border: none;
+  border-radius: 14px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  font-family: inherit;
+  flex-shrink: 0;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), #FF8E53);
+  color: white;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.35);
+}
+
+.btn-primary:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 10px rgba(255, 107, 107, 0.3);
+}
+
+.btn-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-spin {
+  background: linear-gradient(135deg, var(--accent), var(--primary));
+  color: white;
+  font-size: 22px;
+  padding: 18px 24px;
+  animation: glowPulse 2s ease-in-out infinite;
+  letter-spacing: 2px;
+}
+
+.btn-spin:active {
+  transform: scale(0.95);
+}
+
+.btn-spin.spinning {
+  animation: pulse 0.5s ease-in-out infinite;
+  opacity: 0.7;
+}
+
+.btn-spin:disabled {
+  cursor: not-allowed;
+}
+
+/* ============ LOVER OPTIONS ============ */
+.options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: 100%;
+}
+
+.option-card {
+  background: var(--card-bg);
+  border: 2px solid var(--card-border);
+  border-radius: 14px;
+  padding: 14px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+  color: var(--text);
+  font-family: inherit;
+}
+
+.option-card:active {
+  transform: scale(0.95);
+}
+
+.option-card.selected {
+  border-color: var(--accent);
+  background: rgba(255, 217, 61, 0.12);
+}
+
+.option-card.correct {
+  border-color: #6BCB77;
+  background: rgba(107, 203, 119, 0.12);
+}
+
+.option-emoji {
+  font-size: 36px;
+}
+
+.option-name {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.option-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.correct-badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: #6BCB77;
+  color: white;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-weight: 700;
+}
+
+.correct-message {
+  font-size: 16px;
+  color: var(--accent);
+  font-weight: 600;
+  padding: 4px 10px;
+  line-height: 1.5;
+}
+
+/* ============ PRIZE SELECTION ============ */
+.prize-step {
+  justify-content: flex-start;
+  padding-top: 8px;
+  gap: 10px;
+}
+
+.prize-counter {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.prize-counter .counter-full {
+  color: var(--accent);
+  text-shadow: 0 0 10px rgba(255, 217, 61, 0.5);
+}
+
+.prizes-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  width: 100%;
+  flex: 1;
+  overflow-y: auto;
+  padding: 2px 2px 8px;
+  -webkit-overflow-scrolling: touch;
+  min-height: 0;
+}
+
+.prize-card {
+  background: var(--card-bg);
+  border: 2px solid var(--card-border);
+  border-radius: 12px;
+  padding: 10px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: var(--text);
+  font-family: inherit;
+}
+
+.prize-card:active {
+  transform: scale(0.96);
+}
+
+.prize-card.prize-selected {
+  border-color: var(--primary);
+  background: rgba(255, 107, 107, 0.15);
+}
+
+.prize-card.prize-disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.prize-emoji {
+  font-size: 28px;
+}
+
+.prize-name {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.prize-check {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: var(--primary);
+  color: white;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.btn-sticky {
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+/* ============ SPIN WHEEL ============ */
+.spin-step {
+  justify-content: space-between;
+  padding: 10px 16px 20px;
+  gap: 10px;
+}
+
+.spin-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  justify-content: center;
+  position: relative;
+}
+
+.spin-header .btn-back {
+  position: absolute;
+  left: 0;
+}
+
+.spin-title {
+  font-size: 26px;
+}
+
+.wheel-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  min-height: 0;
+}
+
+.wheel-container {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wheel-pointer {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 16px solid transparent;
+  border-right: 16px solid transparent;
+  border-top: 30px solid var(--accent);
+  filter: drop-shadow(0 3px 6px rgba(0,0,0,0.4));
+  z-index: 10;
+}
+
+.wheel-canvas {
+  display: block;
+}
+
+/* ============ RESULT ============ */
+.result-step {
+  position: relative;
+  overflow: hidden;
+  justify-content: center;
+  gap: 20px;
+}
+
+.result-card {
+  background: var(--card-bg);
+  border: 2px solid var(--card-border);
+  border-radius: 24px;
+  padding: 28px 20px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  animation: scaleIn 0.6s ease-out;
+}
+
+.result-emoji {
+  font-size: 76px;
+  animation: heartbeat 2s ease-in-out infinite;
+}
+
+.result-title {
+  font-size: 32px;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--accent), var(--primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.result-name {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.result-prize-label {
+  font-size: 16px;
+  color: var(--text-muted);
+}
+
+.result-prize {
+  background: linear-gradient(135deg, var(--primary), #FF8E53);
+  border-radius: 16px;
+  padding: 18px 20px;
+  width: 100%;
+  text-align: center;
+}
+
+.result-prize-text {
+  font-size: 20px;
+  font-weight: 800;
+  color: white;
+  line-height: 1.4;
+}
+
+.result-message {
+  font-size: 15px;
+  color: var(--text-muted);
+  font-style: italic;
+  line-height: 1.5;
+}
+
+/* ============ BONUS BUTTON ============ */
+.btn-bonus {
+  background: linear-gradient(135deg, #9B59B6, #E91E63);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 18px rgba(155, 89, 182, 0.4);
+  animation: glowPulse 2.5s ease-in-out infinite;
+}
+
+.btn-bonus:active {
+  transform: scale(0.97);
+}
+
+/* ============ BONUS MODAL ============ */
+.bonus-modal {
+  background: var(--card-bg);
+  border: 2px solid var(--card-border);
+  border-radius: 28px;
+  padding: 36px 24px;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  animation: scaleIn 0.4s ease-out;
+  position: relative;
+}
+
+.bonus-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.bonus-close:active {
+  transform: scale(0.9);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.bonus-icon {
+  font-size: 56px;
+  animation: float 3s ease-in-out infinite;
+}
+
+.bonus-title {
+  font-size: 24px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #E91E63, #9B59B6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bonus-desc {
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ============ PIN INPUT ============ */
+.pin-container {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin: 8px 0;
+}
+
+.pin-input {
+  width: 46px;
+  height: 56px;
+  border: 2px solid var(--card-border);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  font-size: 24px;
+  font-weight: 800;
+  text-align: center;
+  outline: none;
+  transition: all 0.25s ease;
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+  caret-color: var(--accent);
+}
+
+.pin-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 16px rgba(255, 217, 61, 0.3);
+  background: rgba(255, 217, 61, 0.06);
+}
+
+.pin-input.pin-filled {
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.pin-error {
+  color: #FF6B6B;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+@keyframes pinShake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-10px); }
+  40% { transform: translateX(10px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(6px); }
+}
+
+.pin-shake {
+  animation: pinShake 0.5s ease-in-out;
+}
+
+.pin-shake .pin-input {
+  border-color: #FF6B6B !important;
+  box-shadow: 0 0 12px rgba(255, 107, 107, 0.4) !important;
+}
+
+/* ============ LOVE LETTER ============ */
+.letter-screen {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.letter-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px 8px;
+  flex-shrink: 0;
+}
+
+.letter-header-icon {
+  font-size: 32px;
+  animation: float 2.5s ease-in-out infinite;
+}
+
+.letter-scroll {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 16px 24px;
+}
+
+.letter-paper {
+  background: linear-gradient(
+    180deg,
+    #fffdf8 0%,
+    #fff8ee 30%,
+    #fff3e0 60%,
+    #ffedcc 100%
+  );
+  border-radius: 20px;
+  padding: 32px 24px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.08),
+    0 12px 40px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  position: relative;
+  overflow: hidden;
+  animation: scaleIn 0.7s ease-out;
+}
+
+.letter-ribbon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(
+    90deg,
+    #E91E63 0%, #FF6B6B 25%, #FFD93D 50%, #FF6B6B 75%, #E91E63 100%
+  );
+}
+
+.letter-deco-tl {
+  position: absolute;
+  top: 14px;
+  left: 18px;
+  font-size: 20px;
+  color: #e0c9a0;
+  opacity: 0.5;
+  transform: rotate(-10deg);
+}
+
+.letter-deco-br {
+  position: absolute;
+  bottom: 14px;
+  right: 18px;
+  font-size: 20px;
+  color: #e0c9a0;
+  opacity: 0.5;
+  transform: rotate(170deg);
+}
+
+.letter-greeting {
+  font-size: 18px;
+  font-weight: 700;
+  color: #c0392b;
+  font-style: italic;
+  margin-bottom: 20px;
+  padding-top: 8px;
+}
+
+.letter-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.letter-body p {
+  font-size: 15px;
+  line-height: 1.85;
+  color: #5d4037;
+  text-align: justify;
+  text-indent: 1.5em;
+  margin: 0;
+  font-weight: 400;
+}
+
+.letter-closing {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.letter-love {
+  font-size: 20px;
+  font-weight: 800;
+  color: #E91E63;
+  font-style: italic;
+}
+
+.letter-sign {
+  font-size: 17px;
+  font-weight: 700;
+  color: #8B6914;
+  font-style: italic;
+}
+
+.letter-hearts-inline {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px dashed #e0c9a0;
+}
+
+.letter-heart {
+  font-size: 22px;
+  animation: heartbeat 1.5s ease-in-out infinite;
+  display: inline-block;
+}
+
+/* ============ HEART REACTION ============ */
+.heart-reaction {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 28px 0 8px;
+}
+
+.heart-reaction-label {
+  font-size: 14px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.heart-tap-area {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heart-btn {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  border: 2px solid rgba(233, 30, 99, 0.3);
+  background: rgba(233, 30, 99, 0.1);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  z-index: 2;
+}
+
+.heart-btn:active {
+  transform: scale(0.85);
+  background: rgba(233, 30, 99, 0.25);
+  border-color: rgba(233, 30, 99, 0.6);
+}
+
+.heart-btn-emoji {
+  font-size: 32px;
+  pointer-events: none;
+}
+
+.heart-count {
+  min-height: 22px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.heart-count-number {
+  font-size: 20px;
+  font-weight: 800;
+  color: #E91E63;
+}
+
+.heart-count-text {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* Floating hearts animation */
+@keyframes heartFloatUp {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: translateY(-60px) scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-120px) scale(0.8);
+  }
+}
+
+.heart-float {
+  position: absolute;
+  bottom: 70px;
+  font-size: 28px;
+  pointer-events: none;
+  z-index: 10;
+  animation: heartFloatUp 1.4s ease-out forwards;
+}
+
+/* ============ CONFETTI ============ */
+.confetti {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 100;
+  overflow: hidden;
+}
+
+.confetti-particle {
+  position: absolute;
+  top: -30px;
+  animation: confettiFall linear infinite;
+}
+
+/* ============ SCROLLBAR ============ */
+::-webkit-scrollbar {
+  width: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+}
+
+/* ============ BACKGROUND PARTICLES ============ */
+.bg-particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.bg-particle {
+  position: absolute;
+  opacity: 0.15;
+  animation: float 6s ease-in-out infinite;
+}
+
+/* ============ TEASE STEP ============ */
+.tease-emoji {
+  font-size: 4.5rem;
+  animation: bounce 0.8s ease-in-out infinite alternate;
+  margin-bottom: 8px;
+}
+
+.tease-card {
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.15), rgba(255, 142, 142, 0.12));
+  border: 2px solid rgba(255, 107, 107, 0.3);
+  border-radius: 24px;
+  padding: 32px 24px;
+  text-align: center;
+  width: 100%;
+  max-width: 340px;
+  animation: scaleIn 0.5s ease-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.tease-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 107, 107, 0.08) 0%, transparent 70%);
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+.tease-title {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--accent);
+  letter-spacing: 3px;
+  margin-bottom: 12px;
+  text-shadow: 0 0 20px rgba(255, 217, 61, 0.4);
+  position: relative;
+}
+
+.tease-divider {
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
+  border-radius: 2px;
+  margin: 0 auto 16px;
+}
+
+.tease-text {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 4px;
+  position: relative;
+}
+
+.tease-highlight {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--primary);
+  text-shadow: 0 0 15px rgba(255, 107, 107, 0.5);
+  margin: 8px 0;
+  animation: glowPulse 2s ease-in-out infinite;
+  position: relative;
+}
+
+@keyframes bounce {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-12px); }
+}
+
+/* ============ DANCING CATS (Mèo Khuẩn TikTok) ============ */
+.dancing-cats-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* --- Mèo bay ngang màn hình --- */
+.dancing-cat {
+  position: absolute;
+  top: var(--cat-start-y);
+  animation-duration: var(--cat-duration);
+  animation-delay: var(--cat-delay);
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.dancing-cat-right {
+  animation-name: catWalkRight;
+}
+
+.dancing-cat-left {
+  animation-name: catWalkLeft;
+}
+
+@keyframes catWalkRight {
+  0% {
+    left: -80px;
+    opacity: 0;
+  }
+  5% {
+    opacity: 0.7;
+  }
+  90% {
+    opacity: 0.7;
+  }
+  100% {
+    left: 105%;
+    opacity: 0;
+  }
+}
+
+@keyframes catWalkLeft {
+  0% {
+    right: -80px;
+    left: auto;
+    opacity: 0;
+  }
+  5% {
+    opacity: 0.7;
+  }
+  90% {
+    opacity: 0.7;
+  }
+  100% {
+    right: 105%;
+    left: auto;
+    opacity: 0;
+  }
+}
+
+.cat-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: catBounce 0.5s ease-in-out infinite alternate;
+}
+
+.cat-emoji {
+  font-size: var(--cat-size);
+  filter: drop-shadow(0 0 8px var(--cat-color));
+  animation: catDance 1s ease-in-out infinite;
+}
+
+.cat-shadow {
+  width: calc(var(--cat-size) * 0.6);
+  height: 6px;
+  background: radial-gradient(ellipse, rgba(0,0,0,0.2), transparent);
+  border-radius: 50%;
+  margin-top: -4px;
+  animation: catShadowPulse 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes catBounce {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-14px);
+  }
+}
+
+@keyframes catDance {
+  0%, 100% {
+    transform: rotate(-8deg) scale(1);
+  }
+  25% {
+    transform: rotate(8deg) scale(1.1);
+  }
+  50% {
+    transform: rotate(-5deg) scale(1);
+  }
+  75% {
+    transform: rotate(10deg) scale(1.05);
+  }
+}
+
+@keyframes catShadowPulse {
+  0% {
+    transform: scaleX(1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scaleX(0.6);
+    opacity: 0.2;
+  }
+}
+
+/* --- Mèo khuẩn nhảy ở dưới cùng --- */
+.dancing-cats-floor {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  padding: 0 10%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.floor-cat {
+  animation: floorCatJump 0.6s ease-in-out infinite;
+  animation-delay: var(--floor-delay);
+}
+
+.floor-cat-emoji {
+  font-size: var(--floor-size);
+  display: block;
+  filter: drop-shadow(0 0 12px rgba(255, 107, 107, 0.4));
+  animation: floorCatWiggle 0.3s ease-in-out infinite alternate;
+}
+
+@keyframes floorCatJump {
+  0%, 100% {
+    transform: translateY(0) scaleY(1);
+  }
+  10% {
+    transform: translateY(0) scaleY(0.85) scaleX(1.1);
+  }
+  30% {
+    transform: translateY(-30px) scaleY(1.1) scaleX(0.95);
+  }
+  50% {
+    transform: translateY(-40px) scaleY(1) scaleX(1);
+  }
+  70% {
+    transform: translateY(-25px) scaleY(1.05);
+  }
+  85% {
+    transform: translateY(0) scaleY(0.9) scaleX(1.05);
+  }
+}
+
+@keyframes floorCatWiggle {
+  0% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(5deg);
+  }
+}
+
+/* ============ MUSIC PLAYER ============ */
+.music-toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 9999;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+}
+
+.music-toggle:hover {
+  background: rgba(255, 255, 255, 0.18);
+  transform: scale(1.1);
+}
+
+.music-toggle.playing {
+  border-color: rgba(255, 107, 107, 0.5);
+  box-shadow: 0 0 16px rgba(255, 107, 107, 0.25);
+  animation: musicPulse 2s ease-in-out infinite;
+}
+
+.music-icon {
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.music-toggle.playing .music-icon {
+  animation: musicBounce 1s ease-in-out infinite;
+}
+
+@keyframes musicPulse {
+  0%, 100% { box-shadow: 0 0 10px rgba(255, 107, 107, 0.2); }
+  50% { box-shadow: 0 0 20px rgba(255, 107, 107, 0.4); }
+}
+
+@keyframes musicBounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
